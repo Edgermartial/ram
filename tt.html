@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-500">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RAM Pharmaceuticals</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col transition-colors duration-500 dark:bg-gray-900 dark:text-gray-100">
+  
+  <!-- Header -->
+  <header class="bg-white dark:bg-gray-800 shadow-md p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">RAM Pharmaceuticals</h1>
+    <nav class="space-x-4">
+      <a href="tt.html" class="hover:text-green-600 dark:hover:text-green-300 transition duration-300">Home</a>
+      <a href="#about" class="hover:text-green-600 dark:hover:text-green-300 transition duration-300">About</a>
+      <a href="meds.html" class="hover:text-green-600 dark:hover:text-green-300 transition duration-300">Medicines</a>
+      <a href="contact.html" class="hover:text-green-600 dark:hover:text-green-300 transition duration-300">Contact</a>
+      <a href="admin.html" class="hover:text-red-600 dark:hover:text-red-400 transition duration-300 font-medium">Admin Panel</a>
+    </nav>
+    <div class="flex items-center space-x-2">
+      <button id="dark-toggle" class="bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300">
+        <i id="dark-icon" class="ri-moon-line text-xl dark:text-yellow-400"></i>
+      </button>
+      <button class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 transition duration-300">
+        <a href="login.html">Sign In</a>
+      </button>
+    </div>
+  </header>
+
+  <!-- Home Section -->
+  <main id="home" class="flex-grow p-6 scroll-mt-20">
+    <section class="text-center mb-12">
+      <h2 class="text-4xl font-bold mb-4">Supplying Hospitals & Chemists in Bulk</h2>
+      <p class="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
+        RAM Pharmaceuticals provides top-quality medicines for health institutions at competitive prices, with efficient delivery.
+      </p>
+    </section>
+    
+    <!-- Medicines Section -->
+    <section id="medicines" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 scroll-mt-20">
+      <div class="bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg text-center transform hover:scale-105 transition duration-300 cursor-pointer hover:shadow-2xl">
+        <i class="ri-capsule-line text-4xl text-green-700 dark:text-green-400 mb-3"></i>
+        <h3 class="text-xl font-semibold mb-2">Medicine Quality</h3>
+        <p class="text-gray-600 dark:text-gray-300">We source from certified manufacturers.</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg text-center transform hover:scale-105 transition duration-300 cursor-pointer hover:shadow-2xl">
+        <i class="ri-truck-line text-4xl text-green-700 dark:text-green-400 mb-3"></i>
+        <h3 class="text-xl font-semibold mb-2">Fast Delivery</h3>
+        <p class="text-gray-600 dark:text-gray-300">Timely delivery to hospitals and chemists.</p>
+      </div>
+      <div class="bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg text-center transform hover:scale-105 transition duration-300 cursor-pointer hover:shadow-2xl">
+        <i class="ri-team-line text-4xl text-green-700 dark:text-green-400 mb-3"></i>
+        <h3 class="text-xl font-semibold mb-2">Professional Support</h3>
+        <p class="text-gray-600 dark:text-gray-300">Get expert consultation anytime.</p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg shadow-md max-w-4xl mx-auto mb-12 scroll-mt-20 hover:shadow-2xl transition duration-300">
+      <h2 class="text-3xl font-bold mb-4 text-center">About RAM Pharmaceuticals</h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-4 text-center">
+        RAM Pharmaceuticals is committed to improving healthcare by providing affordable, high-quality pharmaceutical products. 
+        Our vision is to become a trusted partner in medical supply chains across the region.
+      </p>
+      <p class="text-gray-700 dark:text-gray-300 text-center">
+        With a professional team, verified suppliers, and a customer-first approach, we ensure excellence in every delivery. 
+        Whether you are a hospital, clinic, or chemist, our support and stock will help you serve your patients better.
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white text-center p-4 dark:bg-gray-900">
+    <p>&copy; 2025 RAM Pharmaceuticals. All rights reserved.</p>
+  </footer>
+
+  <!-- Dark Mode Script -->
+  <script>
+    const html = document.documentElement;
+    const toggleBtn = document.getElementById("dark-toggle");
+    const icon = document.getElementById("dark-icon");
+
+    if (localStorage.getItem("theme") === "dark") {
+      html.classList.add("dark");
+      icon.classList.replace("ri-moon-line", "ri-sun-line");
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      html.classList.toggle("dark");
+      const isDark = html.classList.contains("dark");
+      icon.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  </script>
+</body>
+</html>

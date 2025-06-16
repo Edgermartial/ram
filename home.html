@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAM Hospital - Pharmaceutical Services</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#2E8B57',secondary:'#98FB98'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+:root {
+--primary: #2E8B57;
+--secondary: #98FB98;
+--text-dark: #1a2b33;
+--text-light: #ffffff;
+--bg-light: #ffffff;
+--bg-dark: #1a4731;
+--card-light: #f8f9fa;
+--card-dark: #2c5545;
+}
+body {
+font-family: 'Poppins', sans-serif;
+transition: background-color 0.3s, color 0.3s;
+}
+.dark {
+--bg-light: var(--bg-dark);
+--text-dark: var(--text-light);
+--card-light: var(--card-dark);
+}
+.auth-container {
+background-image: linear-gradient(135deg, rgba(46, 139, 87, 0.8), rgba(152, 251, 152, 0.8)), url('https://readdy.ai/api/search-image?query=modern%2520hospital%2520interior%2520with%2520clean%2520minimalist%2520design%252C%2520soft%2520lighting%252C%2520reception%2520desk%2520with%2520medical%2520staff%252C%2520waiting%2520area%2520with%2520comfortable%2520seating%252C%2520plants%2520and%2520greenery%2520for%2520calming%2520atmosphere%252C%2520high-quality%2520medical%2520equipment%2520visible%2520in%2520background&width=1200&height=800&seq=auth-bg&orientation=landscape');
+background-size: cover;
+background-position: center;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-checkbox {
+position: relative;
+padding-left: 30px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #eee;
+border-radius: 4px;
+transition: all 0.2s;
+}
+.custom-checkbox:hover input ~ .checkmark {
+background-color: #ccc;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: var(--primary);
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 7px;
+top: 3px;
+width: 6px;
+height: 12px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 50px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 34px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: var(--primary);
+}
+input:checked + .slider:before {
+transform: translateX(26px);
+}
+.custom-range {
+-webkit-appearance: none;
+width: 100%;
+height: 8px;
+border-radius: 5px;
+background: #d3d3d3;
+outline: none;
+}
+.custom-range::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: var(--primary);
+cursor: pointer;
+}
+.custom-range::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: var(--primary);
+cursor: pointer;
+border: none;
+}
+.medicine-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.medicine-card img {
+transition: transform 0.3s ease;
+}
+.medicine-card:hover img {
+transform: scale(1.05);
+}
+.dashboard-stat {
+transition: all 0.3s ease;
+}
+.dashboard-stat:hover {
+transform: translateY(-5px);
+}
+.nav-link {
+position: relative;
+}
+.nav-link::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: -2px;
+left: 0;
+background-color: var(--primary);
+transition: width 0.3s;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+width: 100%;
+}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+<!-- Auth Pages -->
+<div id="auth-container" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+<div class="auth-container w-full max-w-md p-6 rounded-lg shadow-xl bg-white">
+<!-- Login Form -->
+<div id="login-form" class="space-y-6">
+<div class="text-center">
+<h2 class="text-2xl font-bold text-primary mb-1">Welcome Back</h2>
+<p class="text-gray-600">Sign in to your account</p>
+</div>
+<div class="space-y-4">
+<div>
+<label for="login-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-mail-line text-gray-400"></i>
+</div>
+<input type="email" id="login-email" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your email">
+</div>
+</div>
+<div>
+<label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-lock-line text-gray-400"></i>
+</div>
+<input type="password" id="login-password" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your password">
+</div>
+</div>
+<div class="flex items-center justify-between">
+<label class="custom-checkbox flex items-center">
+<input type="checkbox" id="remember-me">
+<span class="checkmark"></span>
+<span class="text-sm text-gray-600 ml-2">Remember me</span>
+</label>
+<a href="#" class="text-sm text-primary hover:text-primary-dark">Forgot password?</a>
+</div>
+</div>
+<button id="login-button" class="w-full bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-button transition-colors duration-300 whitespace-nowrap">Sign In</button>
+<div class="text-center text-sm">
+<span class="text-gray-600">Don't have an account?</span>
+<a href="#" id="show-register" class="text-primary hover:text-primary-dark ml-1">Register now</a>
+</div>
+</div>
+<!-- Register Form -->
+<div id="register-form" class="space-y-6 hidden">
+<div class="text-center">
+<h2 class="text-2xl font-bold text-primary mb-1">Create Account</h2>
+<p class="text-gray-600">Join RAM Hospital Pharmacy</p>
+</div>
+<div class="space-y-4">
+<div>
+<label for="register-name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-user-line text-gray-400"></i>
+</div>
+<input type="text" id="register-name" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your full name">
+</div>
+</div>
+<div>
+<label for="register-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-mail-line text-gray-400"></i>
+</div>
+<input type="email" id="register-email" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Enter your email">
+</div>
+</div>
+<div>
+<label for="register-password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-lock-line text-gray-400"></i>
+</div>
+<input type="password" id="register-password" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Create a password">
+</div>
+</div>
+<div>
+<label for="register-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<i class="ri-lock-line text-gray-400"></i>
+</div>
+<input type="password" id="register-confirm-password" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-button focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Confirm your password">
+</div>
+</div>
+<div>
+<label class="custom-checkbox flex items-start">
+<input type="checkbox" id="terms">
+<span class="checkmark mt-1"></span>
+<span class="text-sm text-gray-600 ml-2">I agree to the <a href="#" class="text-primary">Terms of Service</a> and <a href="#" class="text-primary">Privacy Policy</a></span>
+</label>
+</div>
+</div>
+<button id="register-button" class="w-full bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-button transition-colors duration-300 whitespace-nowrap">Create Account</button>
+<div class="text-center text-sm">
+<span class="text-gray-600">Already have an account?</span>
+<a href="#" id="show-login" class="text-primary hover:text-primary-dark ml-1">Sign in</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Header -->
+<header class="bg-white shadow-sm sticky top-0 z-40">
+<div class="container mx-auto px-4 py-3 flex items-center justify-between">
+<a href="#" class="flex items-center">
+<span class="text-primary font-['Pacifico'] text-2xl">RAM Hospital</span>
+</a>
+<nav class="hidden md:flex items-center space-x-6">
+<a href="#home" class="nav-link text-gray-700 hover:text-primary transition-colors duration-300 active">Home</a>
+<a href="#medicines" class="nav-link text-gray-700 hover:text-primary transition-colors duration-300">Medicines</a>
+<a href="#about" class="nav-link text-gray-700 hover:text-primary transition-colors duration-300">About</a>
+<a href="#contact" class="nav-link text-gray-700 hover:text-primary transition-colors duration-300">Contact</a>
+</nav>
+<div class="flex items-center space-x-4">
+<button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-300">
+<i class="ri-sun-line text-gray-700"></i>
+</button>
+<button id="cart-button" class="relative w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-300">
+<i class="ri-shopping-cart-line text-gray-700"></i>
+<span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
+</button>
+<button id="auth-button" class="bg-primary hover:bg-primary/90 text-white py-2 px-4 rounded-button transition-colors duration-300 whitespace-nowrap">
+Sign In
+</button>
+<div id="user-profile" class="hidden relative">
+<button id="profile-button" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center">
+<span>JD</span>
+</button>
+<div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden">
+<a href="#dashboard" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Dashboard</a>
+<a href="#orders" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">My Orders</a>
+<a href="#settings" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Settings</a>
+<hr class="my-1">
+<button id="logout-button" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
+</div>
+</div>
+<button id="mobile-menu-button" class="md:hidden w-10 h-10 flex items-center justify-center">
+<i class="ri-menu-line text-xl text-gray-700"></i>
+</button>
+</div>
+</div>
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="md:hidden bg-white shadow-lg hidden">
+<div class="px-4 py-3 space-y-2">
+<a href="#home" class="block py-2 text-gray-700 hover:text-primary">Home</a>
+<a href="#medicines" class="block py-2 text-gray-700 hover:text-primary">Medicines</a>
+<a href="#about" class="block py-2 text-gray-700 hover:text-primary">About</a>
+<a href="#contact" class="block py-2 text-gray-700 hover:text-primary">Contact</a>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow">
+<!-- Home Page -->
+<div id="home-page">
+<!-- Hero Section -->
+<section id="home" class="relative bg-gradient-to-r from-primary/10 to-primary/5 overflow-hidden">
+<div class="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center">
+<div class="md:w-1/2 z-10">
+<h1 class="text-4xl md:text-5xl font-bold text-gray-800 leading-tight mb-4">Your Health, Our Priority</h1>
+<p class="text-lg text-gray-600 mb-8">Experience the best pharmaceutical services at RAM Hospital. We provide high-quality medicines and exceptional care for all your health needs.</p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button id="explore-medicines-btn" class="bg-primary hover:bg-primary/90 text-white py-3 px-6 rounded-button transition-colors duration-300 whitespace-nowrap">
+Explore Medicines
+</button>
+<button class="bg-white hover:bg-gray-100 text-primary border border-primary py-3 px-6 rounded-button transition-colors duration-300 whitespace-nowrap">
+Learn More
+</button>
+</div>
+</div>
+<div class="md:w-1/2 mt-10 md:mt-0">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=modern%2520pharmacy%2520with%2520clean%2520shelves%2520of%2520organized%2520medicines%252C%2520pharmacist%2520in%2520white%2520coat%2520helping%2520customer%252C%2520bright%2520well-lit%2520interior%252C%2520medical%2520displays%252C%2520green%2520plants%2520for%2520decoration%252C%2520professional%2520healthcare%2520environment%252C%2520high-quality%2520pharmaceutical%2520products%2520visible&width=600&height=400&seq=hero-img&orientation=landscape" alt="RAM Hospital Pharmacy" class="rounded-lg shadow-xl object-cover w-full h-auto">
+<div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-lg shadow-lg">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+<i class="ri-24-hours-line text-primary text-xl"></i>
+</div>
+<div>
+<p class="text-gray-800 font-semibold">24/7 Service</p>
+<p class="text-gray-600 text-sm">Always available for you</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-center mt-8">
+<nav class="flex items-center space-x-2">
+<button id="prev-page" class="px-3 py-1 rounded-lg bg-white border text-gray-600 hover:bg-gray-50 disabled:opacity-50">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<div class="pagination-numbers flex items-center space-x-2">
+<button class="px-3 py-1 rounded-lg bg-primary text-white">1</button>
+<button class="px-3 py-1 rounded-lg bg-white border text-gray-600 hover:bg-gray-50">2</button>
+<button class="px-3 py-1 rounded-lg bg-white border text-gray-600 hover:bg-gray-50">3</button>
+</div>
+<button id="next-page" class="px-3 py-1 rounded-lg bg-white border text-gray-600 hover:bg-gray-50">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</nav>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section -->
+<section class="py-16 bg-white">
+<div class="container mx-auto px-4">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-bold text-gray-800 mb-4">Why Choose Us</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">We provide comprehensive pharmaceutical services with a focus on quality, accessibility, and patient care.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-medicine-bottle-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Quality Medicines</h3>
+<p class="text-gray-600">We source our medicines from trusted manufacturers to ensure the highest quality and effectiveness.</p>
+</div>
+<div class="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-truck-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Fast Delivery</h3>
+<p class="text-gray-600">Get your medicines delivered to your doorstep quickly with our efficient delivery service.</p>
+</div>
+<div class="bg-gray-50 p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-customer-service-2-line text-primary text-2xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-800 mb-2">Expert Consultation</h3>
+<p class="text-gray-600">Our experienced pharmacists are available to provide professional advice on your medications.</p>
+</div>
+</div>
+</div>
+<div class="flex justify-center mt-8">
+<nav class="flex items-center space-x-2">
+<button id="prev-page" class="px-3 py-1 rounded-lg bg-white border text-gray-600 hover:bg-gray-50 disabled:opacity-50">
+<i class="ri-arrow-left-s-line"></i>
+</button>
+<div class="pagination-numbers flex items-center space-x-2">
+<button class="px-3 py-1 rounded-lg bg-primary text-white">1</button>
+<button class="px-3 py-1 rounded-lg bg-white border text-gray-600 hover:bg-gray-50">2</button>
+<button class="px-3 py-1 rounded-lg bg-white border text-gray-600 hover:bg-gray-50">3</button>
+</div>
+<button id="next-page" class="px-3 py-1 rounded-lg bg-white border text-gray-600 hover:bg-gray-50">
+<i class="ri-arrow-right-s-line"></i>
+</button>
+</nav>
+</div>
+</div>
+</div>
+</section>
+<!-- Popular Medicines Section -->
+<section id="medicines" class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="flex flex-col space-y-6">
+<div class="flex justify-between items-center">
+<h2 class="text-3xl font-bold text-gray-800">Medicines Catalog</h2>
+<div class="relative">
+<div class="flex items-center bg-white rounded-lg border">
+<input type="text" id="medicine-search" placeholder="Search medicines..." class="w-64 px-4 py-2 rounded-l-lg focus:outline-none">
+<button id="search-btn" class="px-4 py-2 bg-primary text-white rounded-r-lg hover:bg-primary/90">
+<i class="ri-search-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-white p-4 rounded-lg shadow-sm">
+<h3 class="font-semibold text-gray-800 mb-4">Filters</h3>
+<div class="space-y-6">
+<div>
+<h4 class="text-sm font-medium text-gray-700 mb-2">Categories</h4>
+<div class="space-y-2">
+<label class="custom-checkbox flex items-center">
+<input type="checkbox" value="pain-relief">
+<span class="checkmark"></span>
+<span class="text-sm text-gray-600 ml-2">Pain Relief</span>
+</label>
+<label class="custom-checkbox flex items-center">
+<input type="checkbox" value="antibiotics">
+<span class="checkmark"></span>
+<span class="text-sm text-gray-600 ml-2">Antibiotics</span>
+</label>
+<label class="custom-checkbox flex items-center">
+<input type="checkbox" value="cardiovascular">
+<span class="checkmark"></span>
+<span class="text-sm text-gray-600 ml-2">Cardiovascular</span>
+</label>
+<label class="custom-checkbox flex items-center">
+<input type="checkbox" value="diabetes">
+<span class="checkmark"></span>
+<span class="text-sm text-gray-600 ml-2">Diabetes</span>
+</label>
+</div>
+</div>
+<div>
+<h4 class="text-sm font-medium text-gray-700 mb-2">Price Range</h4>
+<div class="space-y-2">
+<input type="range" id="price-range" min="0" max="100" class="custom-r

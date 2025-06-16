@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-500">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Panel | RAM Pharmaceuticals</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" />
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-white p-6 transition-colors duration-500">
+
+  <!-- Login Protection -->
+  <script>
+    if (localStorage.getItem('isAdmin') !== 'true') {
+      window.location.href = 'adminlogin.html';
+    }
+  </script>
+
+  <!-- Header -->
+  <header class="mb-8 flex justify-between items-center">
+    <h1 class="text-3xl font-bold text-green-700 dark:text-green-400">Admin Panel</h1>
+    <div class="flex items-center gap-4">
+      <button id="dark-toggle" class="bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition" aria-label="Toggle Dark Mode">
+        <i id="dark-icon" class="ri-moon-line text-xl dark:text-yellow-400"></i>
+      </button>
+      <button onclick="logout()" class="text-sm text-red-600 hover:underline">Logout</button>
+    </div>
+  </header>
+
+  <!-- Medicine Management -->
+  <main class="max-w-2xl mx-auto space-y-8">
+    <!-- Add Medicine Form -->
+    <form id="add-form" class="flex gap-4" autocomplete="off">
+      <input type="text" id="medicine-input" placeholder="Enter new medicine name" class="flex-grow px-4 py-2 border rounded dark:bg-gray-800 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500" required />
+      <button type="submit" class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 transition">Add</button>
+    </form>
+
+    <!-- Medicine List -->
+    <section>
+      <h2 class="text-xl font-semibold mb-3">Current Medicines</h2>
+      <ul id="medicine-list" class="space-y-2"></ul>
+    </section>
+  </main>
+
+  <!-- Scripts -->
+  <script>
+    const listEl = document.getElementById('medicine-list');
+    const form = document.getElementById('add-form');
+    const input = document.getElementById('medicine-input');
+    const medicines = JSON.parse(localStorage.getItem('medicines')) || [];
+
+    function updateList() {
+      listEl.innerHTML = '';
+      medicines.forEach((name, index) => {
+        const li = document.createElement('li');
+        li.className = 'flex justify-between items-center bg-white dark:bg-gray-800 p-3 rounded shadow';
+        li.innerHTML = `
+          <span class="font-medium text-green-700 dark:text-green-300">${name}</span>
+          <button onclick="removeMedicine(${index})" class="text-red-600 hover:underline">Remove</button>
+        `;
+        listEl.appendChild(li);
+      });
+      localStorage.setItem('medicines', JSON.stringify(medicines));
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = input.value.trim();
+      if (name && !medicines.includes(name)) {
+        medicines.push(name);
+        input.value = '';
+        updateList();
+      }
+    });
+
+    window.removeMedicine = index => {
+      medicines.splice(index, 1);
+      updateList();
+    };
+
+    function logout() {
+      localStorage.removeItem('isAdmin');
+      window.location.href = 'tt.html';
+    }
+
+    updateList();
+
+    // Dark Mode Toggle
+    const html = document.documentElement;
+    const toggleBtn = document.getElementById("dark-toggle");
+    const icon = document.getElementById("dark-icon");
+
+    if (localStorage.getItem("theme") === "dark") {
+      html.classList.add("dark");
+      icon.classList.replace("ri-moon-line", "ri-sun-line");
+    }
+
+    toggleBtn.addEventListener("click", () => {
+      html.classList.toggle("dark");
+      const isDark = html.classList.contains("dark");
+      icon.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+/* Feature Cards */
+section.grid > div {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+section.grid > div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+  font-size: 0.875rem;
+}
