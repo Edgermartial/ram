@@ -3,94 +3,147 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Order Medicine | RAM Pharmaceuticals</title>
+  <title>Order Medicine</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" />
 </head>
-<body class="bg-green-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-500">
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-500">
 
   <!-- Navbar -->
   <header class="bg-white dark:bg-gray-800 shadow-md p-4 flex justify-between items-center">
     <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">RAM Pharmaceuticals</h1>
     <nav class="space-x-4">
-      <a href="index.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Home</a>
-      <a href="meds.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Medicines</a>
-      <a href="contact.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Contact</a>
+      <a href="index.html" class="hover:text-green-600 dark:hover:text-green-300 font-medium transition duration-200">Home</a>
+      <a href="meds.html" class="hover:text-green-600 dark:hover:text-green-300 font-medium transition duration-200">Medicines</a>
+      <a href="contact.html" class="hover:text-green-600 dark:hover:text-green-300 font-medium transition duration-200">Contact</a>
     </nav>
-    <button id="dark-toggle" class="bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+    <button id="dark-toggle" class="bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-200 focus:outline-none">
       <i id="dark-icon" class="ri-moon-line text-xl dark:text-yellow-400"></i>
     </button>
   </header>
 
-  <!-- Main Order Form -->
-  <main class="flex items-center justify-center py-10 px-4">
-    <form class="w-full max-w-2xl bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg space-y-6">
-      <h2 class="text-xl font-semibold text-green-700 dark:text-green-400 text-center">Order Form</h2>
-
-      <!-- Medicine Name -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Medicine</label>
-        <input type="text" id="medicine-name" name="medicine" readonly class="w-full px-4 py-2 border rounded bg-gray-100 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
-      </div>
-
-      <!-- Quantity -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Quantity</label>
-        <input type="text" name="quantity" placeholder="e.g. 100 boxes" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 dark:bg-gray-700 dark:text-white dark:border-gray-600 focus:outline-none" required />
-      </div>
-
-      <!-- Delivery Address -->
-      <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Delivery Address</label>
-        <textarea name="address" placeholder="Include city, street, etc." class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600" rows="3" required></textarea>
-      </div>
-
-      <!-- Contact Details -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <!-- Main Content -->
+  <main class="flex flex-col items-center justify-center p-4">
+    <!-- Order Form -->
+    <div id="formContainer" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-xl">
+      <h2 class="text-2xl font-bold text-center text-green-600 dark:text-green-400 mb-6">Order Form</h2>
+      <form id="orderForm" class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
-          <input type="text" name="name" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600" required />
+          <label for="medicine" class="block text-sm font-medium">Medicine</label>
+          <input type="text" id="medicine" readonly required class="w-full mt-1 p-2 rounded bg-gray-100 dark:bg-gray-700 border dark:border-gray-600" />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
-          <input type="email" name="email" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600" required />
+          <label for="quantity" class="block text-sm font-medium">Quantity</label>
+          <input type="text" id="quantity" placeholder="e.g. 100 boxes" required class="w-full mt-1 p-2 rounded bg-gray-100 dark:bg-gray-700 border dark:border-gray-600" />
         </div>
-      </div>
+        <div>
+          <label for="address" class="block text-sm font-medium">Delivery Address</label>
+          <textarea id="address" rows="3" required class="w-full mt-1 p-2 rounded bg-gray-100 dark:bg-gray-700 border dark:border-gray-600"></textarea>
+        </div>
+        <div>
+          <label for="fullname" class="block text-sm font-medium">Full Name</label>
+          <input type="text" id="fullname" required class="w-full mt-1 p-2 rounded bg-gray-100 dark:bg-gray-700 border dark:border-gray-600" />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium">Email</label>
+          <input type="email" id="email" required class="w-full mt-1 p-2 rounded bg-gray-100 dark:bg-gray-700 border dark:border-gray-600" />
+        </div>
+        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">Submit Order</button>
+      </form>
+    </div>
 
-      <!-- Submit -->
-      <button type="submit" class="w-full bg-green-700 text-white py-3 rounded hover:bg-green-800 transition font-medium">
-        Submit Order
-      </button>
-    </form>
+    <!-- Payment Section -->
+    <div id="paymentContainer" class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-xl hidden mt-6">
+      <h2 class="text-2xl font-bold text-center text-green-600 dark:text-green-400 mb-6">Select Payment Method</h2>
+      <form id="paymentForm" class="space-y-4">
+        <div>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="payment" value="mpesa" class="accent-green-600" />
+            <span>M-Pesa</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="payment" value="card" class="accent-green-600" />
+            <span>Card</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="payment" value="paypal" class="accent-green-600" />
+            <span>PayPal</span>
+          </label>
+        </div>
+        <div id="dynamicInput"></div>
+        <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded">Pay Now</button>
+      </form>
+    </div>
   </main>
-
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white text-center p-4">
-    &copy; 2025 RAM Pharmaceuticals. All rights reserved.
-  </footer>
 
   <!-- Scripts -->
   <script>
-    // Auto-fill medicine name from query string
-    const params = new URLSearchParams(window.location.search);
-    const medicine = params.get("medicine") || "Not specified";
-    document.getElementById("medicine-name").value = decodeURIComponent(medicine);
+    // Autofill medicine
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const medicine = urlParams.get("medicine");
+      if (medicine) {
+        document.getElementById("medicine").value = medicine;
+      }
+
+      // Theme init
+      const html = document.documentElement;
+      const icon = document.getElementById("dark-icon");
+      if (localStorage.getItem("theme") === "dark") {
+        html.classList.add("dark");
+        icon.classList.replace("ri-moon-line", "ri-sun-line");
+      }
+    });
 
     // Dark mode toggle
-    const html = document.documentElement;
     const toggleBtn = document.getElementById("dark-toggle");
     const icon = document.getElementById("dark-icon");
-
-    if (localStorage.getItem("theme") === "dark") {
-      html.classList.add("dark");
-      icon.classList.replace("ri-moon-line", "ri-sun-line");
-    }
-
     toggleBtn.addEventListener("click", () => {
-      html.classList.toggle("dark");
-      const isDark = html.classList.contains("dark");
+      const html = document.documentElement;
+      const isDark = html.classList.toggle("dark");
       icon.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
       localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
+    const orderForm = document.getElementById("orderForm");
+    const paymentForm = document.getElementById("paymentForm");
+    const formContainer = document.getElementById("formContainer");
+    const paymentContainer = document.getElementById("paymentContainer");
+    const dynamicInput = document.getElementById("dynamicInput");
+
+    orderForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      formContainer.classList.add("hidden");
+      paymentContainer.classList.remove("hidden");
+    });
+
+    document.querySelectorAll('input[name="payment"]').forEach(option => {
+      option.addEventListener("change", function() {
+        const value = this.value;
+        let html = "";
+        if (value === "mpesa") {
+          html = `
+            <label class="block text-sm font-medium">Phone Number</label>
+            <input type="tel" required placeholder="07XXXXXXXX" class="w-full mt-1 p-2 rounded bg-gray-100 dark:bg-gray-700 border dark:border-gray-600" />
+          `;
+        } else if (value === "card") {
+          html = `
+            <label class="block text-sm font-medium">Card Number</label>
+            <input type="text" required placeholder="1234 5678 9012 3456" class="w-full mt-1 p-2 rounded bg-gray-100 dark:bg-gray-700 border dark:border-gray-600" />
+          `;
+        } else if (value === "paypal") {
+          html = `
+            <label class="block text-sm font-medium">PayPal Email</label>
+            <input type="email" required placeholder="you@example.com" class="w-full mt-1 p-2 rounded bg-gray-100 dark:bg-gray-700 border dark:border-gray-600" />
+          `;
+        }
+        dynamicInput.innerHTML = html;
+      });
+    });
+
+    paymentForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("✅ Payment initialized. Check your phone or email to complete the transaction. Thank you!");
     });
   </script>
 </body>
