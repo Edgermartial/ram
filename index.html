@@ -15,14 +15,19 @@
   <div class="absolute inset-0 bg-white/80 dark:bg-black/60 -z-10"></div>
 
   <!-- Header -->
-  <header class="bg-white/90 dark:bg-gray-800/90 shadow-md p-4 flex justify-between items-center flex-wrap md:flex-nowrap backdrop-blur-md relative z-20">
-    <h1 class="text-2xl font-bold text-green-700 dark:text-green-400 mb-2 md:mb-0">RAM Pharmaceuticals</h1>
+  <header class="bg-white/90 dark:bg-gray-800/90 shadow-md p-4 flex justify-between items-center backdrop-blur-md relative z-20">
+    <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">RAM Pharmaceuticals</h1>
     
-    <button id="menu-toggle" class="md:hidden text-2xl">
+    <!-- Hamburger Icon -->
+    <button id="menu-toggle" class="md:hidden text-2xl z-30 relative">
       <i class="ri-menu-line"></i>
     </button>
 
-    <nav id="nav-links" class="hidden w-full md:flex md:space-x-4 md:w-auto flex-col md:flex-row space-y-2 md:space-y-0 mt-2 md:mt-0">
+    <!-- Navigation Links -->
+    <nav
+      id="nav-links"
+      class="absolute top-16 left-0 w-full bg-white dark:bg-gray-800 shadow-md md:static md:w-auto md:bg-transparent md:dark:bg-transparent md:shadow-none hidden md:flex md:items-center md:space-x-6 flex-col md:flex-row space-y-4 md:space-y-0 px-6 py-4 md:p-0 transition-all duration-300"
+    >
       <a href="index.html" class="hover:text-green-600 dark:hover:text-green-300 transition duration-300">Home</a>
       <a href="#about" class="hover:text-green-600 dark:hover:text-green-300 transition duration-300">About</a>
       <a href="meds.html" class="hover:text-green-600 dark:hover:text-green-300 transition duration-300">Medicines</a>
@@ -30,7 +35,8 @@
       <a href="admin.html" class="hover:text-red-600 dark:hover:text-red-400 transition duration-300 font-medium">Admin Panel</a>
     </nav>
 
-    <div class="flex items-center space-x-2 mt-2 md:mt-0">
+    <!-- Right Side Buttons -->
+    <div class="hidden md:flex items-center space-x-2">
       <button id="dark-toggle" class="bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300">
         <i id="dark-icon" class="ri-moon-line text-xl dark:text-yellow-400"></i>
       </button>
@@ -40,9 +46,18 @@
     </div>
   </header>
 
+  <!-- Mobile Right Side Buttons -->
+  <div class="md:hidden flex justify-end px-4 pt-2 space-x-2">
+    <button id="dark-toggle-m" class="bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300">
+      <i id="dark-icon-m" class="ri-moon-line text-xl dark:text-yellow-400"></i>
+    </button>
+    <button class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-800 transition duration-300">
+      <a href="login.html">Sign In</a>
+    </button>
+  </div>
+
   <!-- Main Content -->
   <main id="home" class="flex-grow px-4 md:px-10 py-6 scroll-mt-20 relative z-10">
-    <!-- Hero Section -->
     <section class="text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-bold mb-4">Supplying Hospitals & Chemists in Bulk</h2>
       <p class="text-gray-600 dark:text-gray-300 max-w-xl mx-auto text-sm md:text-base">
@@ -50,7 +65,6 @@
       </p>
     </section>
 
-    <!-- Services Section -->
     <section id="medicines" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12 scroll-mt-20">
       <div class="bg-white/90 dark:bg-gray-800/90 p-6 shadow-lg rounded-lg text-center transform hover:scale-105 transition duration-300 cursor-pointer hover:shadow-2xl">
         <i class="ri-capsule-line text-4xl text-green-700 dark:text-green-400 mb-3"></i>
@@ -69,7 +83,6 @@
       </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="bg-white/90 dark:bg-gray-800/90 p-6 md:p-8 rounded-lg shadow-md max-w-4xl mx-auto mb-12 scroll-mt-20 hover:shadow-2xl transition duration-300">
       <h2 class="text-2xl md:text-3xl font-bold mb-4 text-center">About RAM Pharmaceuticals</h2>
       <p class="text-gray-700 dark:text-gray-300 mb-4 text-center text-sm md:text-base">
@@ -92,24 +105,38 @@
   <script>
     const html = document.documentElement;
     const toggleBtn = document.getElementById("dark-toggle");
+    const toggleBtnM = document.getElementById("dark-toggle-m");
     const icon = document.getElementById("dark-icon");
+    const iconM = document.getElementById("dark-icon-m");
     const menuToggle = document.getElementById("menu-toggle");
     const navLinks = document.getElementById("nav-links");
 
-    // Dark Mode Toggle
+    // Dark Mode Init
     if (localStorage.getItem("theme") === "dark") {
       html.classList.add("dark");
       icon.classList.replace("ri-moon-line", "ri-sun-line");
+      iconM.classList.replace("ri-moon-line", "ri-sun-line");
     }
 
+    // Desktop Dark Toggle
     toggleBtn.addEventListener("click", () => {
       html.classList.toggle("dark");
       const isDark = html.classList.contains("dark");
       icon.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
+      iconM.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
       localStorage.setItem("theme", isDark ? "dark" : "light");
     });
 
-    // Responsive Menu Toggle
+    // Mobile Dark Toggle
+    toggleBtnM.addEventListener("click", () => {
+      html.classList.toggle("dark");
+      const isDark = html.classList.contains("dark");
+      icon.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
+      iconM.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
+    // Dropdown Menu Toggle
     menuToggle.addEventListener("click", () => {
       navLinks.classList.toggle("hidden");
     });
