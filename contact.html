@@ -15,7 +15,7 @@
     <nav class="space-x-4">
       <a href="tt.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Home</a>
       <a href="meds.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Medicines</a>
-      <a href="contact.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Contact</a>
+      <a href="contact.html" class="hover:text-green-600 dark:hover:text-green-300 transition font-semibold underline underline-offset-4">Contact</a>
     </nav>
     <button id="dark-toggle" class="bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition">
       <i id="dark-icon" class="ri-moon-line text-xl dark:text-yellow-400"></i>
@@ -24,22 +24,25 @@
 
   <!-- Main Contact Form -->
   <main class="flex items-center justify-center min-h-[calc(100vh-120px)] p-6">
-    <form class="w-full max-w-xl space-y-6 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
-      <h2 class="text-xl font-semibold text-green-700 dark:text-green-400 text-center">Send Us a Message</h2>
+    <form id="contactForm" class="w-full max-w-xl space-y-6 bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
+      <h2 class="text-2xl font-semibold text-center text-green-700 dark:text-green-400">Send Us a Message</h2>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
-        <input type="text" name="name" placeholder="Your full name" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600" required />
+        <label class="block text-sm font-medium mb-1">Full Name</label>
+        <input type="text" name="name" id="name" placeholder="Your full name"
+          class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600" required />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
-        <input type="email" name="email" placeholder="you@example.com" class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600" required />
+        <label class="block text-sm font-medium mb-1">Email Address</label>
+        <input type="email" name="email" id="email" placeholder="you@example.com"
+          class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600" required />
       </div>
 
       <div>
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
-        <textarea name="message" rows="5" placeholder="Type your message..." class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600" required></textarea>
+        <label class="block text-sm font-medium mb-1">Message</label>
+        <textarea name="message" id="message" rows="5" placeholder="Type your message..."
+          class="w-full px-4 py-2 border rounded focus:ring-2 focus:ring-green-600 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600" required></textarea>
       </div>
 
       <button type="submit" class="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800 transition">
@@ -70,6 +73,15 @@
       const isDark = html.classList.contains("dark");
       icon.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
       localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
+    // Form Submission Handler
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Simulate sending the message
+      alert("✅ Thank you for contacting RAM Pharmaceuticals. We’ll get back to you soon!");
+      this.reset();
     });
   </script>
 
