@@ -10,16 +10,37 @@
 <body class="bg-green-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-500">
 
   <!-- Navbar -->
-  <header class="bg-white dark:bg-gray-800 shadow-md p-4 flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">RAM Pharmaceuticals</h1>
-    <nav class="space-x-4">
-      <a href="tt.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Home</a>
-      <a href="meds.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Medicines</a>
-      <a href="contact.html" class="hover:text-green-600 dark:hover:text-green-300 transition font-semibold underline underline-offset-4">Contact</a>
+  <header class="bg-white dark:bg-gray-800 shadow-md p-4">
+    <div class="flex justify-between items-center max-w-7xl mx-auto">
+      <h1 class="text-2xl font-bold text-green-700 dark:text-green-400">RAM Pharmaceuticals</h1>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex space-x-6 items-center">
+        <a href="tt.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Home</a>
+        <a href="meds.html" class="hover:text-green-600 dark:hover:text-green-300 transition">Medicines</a>
+        <a href="contact.html" class="font-semibold underline underline-offset-4 text-green-600 dark:text-green-300">Contact</a>
+        <button id="dark-toggle" class="ml-2 bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+          <i id="dark-icon" class="ri-moon-line text-xl dark:text-yellow-400"></i>
+        </button>
+      </nav>
+
+      <!-- Hamburger Button -->
+      <div class="md:hidden flex items-center space-x-2">
+        <button id="dark-toggle-mobile" class="bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+          <i id="dark-icon-mobile" class="ri-moon-line text-xl dark:text-yellow-400"></i>
+        </button>
+        <button id="menu-toggle" class="text-2xl text-gray-800 dark:text-white">
+          <i class="ri-menu-line"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <nav id="mobile-menu" class="hidden md:hidden mt-4 space-y-2 px-4">
+      <a href="tt.html" class="block text-lg hover:text-green-600 dark:hover:text-green-300">Home</a>
+      <a href="meds.html" class="block text-lg hover:text-green-600 dark:hover:text-green-300">Medicines</a>
+      <a href="contact.html" class="block text-lg font-semibold underline underline-offset-4 text-green-600 dark:text-green-300">Contact</a>
     </nav>
-    <button id="dark-toggle" class="bg-gray-200 dark:bg-gray-700 p-2 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-      <i id="dark-icon" class="ri-moon-line text-xl dark:text-yellow-400"></i>
-    </button>
   </header>
 
   <!-- Main Contact Form -->
@@ -57,29 +78,45 @@
     &copy; 2025 RAM Pharmaceuticals. All rights reserved.
   </footer>
 
-  <!-- Dark Mode Script -->
+  <!-- Scripts -->
   <script>
     const html = document.documentElement;
-    const toggleBtn = document.getElementById("dark-toggle");
-    const icon = document.getElementById("dark-icon");
+    const darkToggle = document.getElementById("dark-toggle");
+    const darkIcon = document.getElementById("dark-icon");
 
+    const darkToggleMobile = document.getElementById("dark-toggle-mobile");
+    const darkIconMobile = document.getElementById("dark-icon-mobile");
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    // Load dark mode state
     if (localStorage.getItem("theme") === "dark") {
       html.classList.add("dark");
-      icon.classList.replace("ri-moon-line", "ri-sun-line");
+      darkIcon.classList.replace("ri-moon-line", "ri-sun-line");
+      darkIconMobile.classList.replace("ri-moon-line", "ri-sun-line");
     }
 
-    toggleBtn.addEventListener("click", () => {
+    // Toggle dark mode
+    function toggleDark() {
       html.classList.toggle("dark");
       const isDark = html.classList.contains("dark");
-      icon.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
+      darkIcon.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
+      darkIconMobile.classList.replace(isDark ? "ri-moon-line" : "ri-sun-line", isDark ? "ri-sun-line" : "ri-moon-line");
       localStorage.setItem("theme", isDark ? "dark" : "light");
+    }
+
+    darkToggle.addEventListener("click", toggleDark);
+    darkToggleMobile.addEventListener("click", toggleDark);
+
+    // Toggle mobile nav
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
     });
 
-    // Form Submission Handler
+    // Contact form
     document.getElementById("contactForm").addEventListener("submit", function (e) {
       e.preventDefault();
-
-      // Simulate sending the message
       alert("✅ Thank you for contacting RAM Pharmaceuticals. We’ll get back to you soon!");
       this.reset();
     });
